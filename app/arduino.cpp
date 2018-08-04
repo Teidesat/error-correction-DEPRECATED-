@@ -34,7 +34,7 @@ bool Arduino::connectArduino()
 void Arduino::sendDataArduino(int data)
 {
     if (connected && isWritable()) {
-        QString str = QString::number(data) + "\n";
+        QString str = QString::number(data);
         write(str.toStdString().c_str());
     }
 }
