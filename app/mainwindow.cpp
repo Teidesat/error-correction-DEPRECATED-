@@ -33,5 +33,8 @@ void MainWindow::updateConnectButton()
 
 void MainWindow::sendValue()
 {
-    arduino->sendDataArduino(ui->value->value());
+    QString stream = ui->codeStream->text();
+    for (int i = 0; i < stream.size(); ++i) {
+        arduino->sendDataArduino(stream[i].toLatin1());
+    }
 }

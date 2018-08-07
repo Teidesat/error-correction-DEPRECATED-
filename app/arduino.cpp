@@ -21,7 +21,7 @@ bool Arduino::connectArduino()
             setPortName(serialPortInfo.portName());
             open(QIODevice::ReadWrite);
             setDataBits(QSerialPort::Data8);
-            setBaudRate(QSerialPort::Baud115200);
+            setBaudRate(2000000);
             setParity(QSerialPort::NoParity);
             setStopBits(QSerialPort::OneStop);
             setFlowControl(QSerialPort::NoFlowControl);
@@ -31,11 +31,12 @@ bool Arduino::connectArduino()
     return connected;
 }
 
-void Arduino::sendDataArduino(int data)
+void Arduino::sendDataArduino(char data)
 {
     if (connected && isWritable()) {
-        QString str = QString::number(data);
-        write(str.toStdString().c_str());
+        qDebug() << data;
+        const char buffer[2] = { data, '\0' };
+        write(buffer);
     }
 }
 

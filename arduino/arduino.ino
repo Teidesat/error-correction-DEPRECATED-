@@ -1,6 +1,6 @@
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(2000000);
   pinMode(13,OUTPUT);
 }
 
@@ -15,6 +15,6 @@ void serialEvent(){
     } 
     else { // value == '0'
       PORTB &= 0b11011111; 
-    }
+    };
   }
 }

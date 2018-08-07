@@ -6,6 +6,7 @@
 #include <QtSerialPort/QSerialPortInfo>
 #include <QDebug>
 #include <QPushButton>
+#include <QThread>
 #include "arduino.h"
 
 namespace Ui {

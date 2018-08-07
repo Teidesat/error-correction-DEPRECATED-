@@ -8,18 +8,17 @@
 
 class Arduino : public QSerialPort
 {
-public:
-    Arduino();
-
 private:
-    static const quint16 arduinoVendorId = 9025;
-    static const quint16 arduinoModelId = 67;
+    static const quint16 arduinoVendorId = 6790; // 9025
+    static const quint16 arduinoModelId = 29987; // 67
     bool connected;
 
 public:
+
+    Arduino();
     void disconnectArduino();
     bool connectArduino();
-    void sendDataArduino(int data);
+    void sendDataArduino(char data);
     bool isConnected() const;
 };
 
