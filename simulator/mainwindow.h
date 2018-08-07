@@ -3,6 +3,11 @@
 
 #include <QMainWindow>
 #include <QCheckBox>
+#include <QString>
+#include <QDebug>
+#include <QPushButton>
+#include "datastream.h"
+#include "utils.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +23,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    DataStream package;
+
+private slots:
+    void sendData();
+    void generateRandomInput();
+    void updateValues() const;
 };
 
 #endif // MAINWINDOW_H
