@@ -1,4 +1,7 @@
 
+bool buffer[1024];
+bool ready;
+
 void setup() {
   Serial.begin(2000000);
   pinMode(13,OUTPUT);
@@ -16,5 +19,6 @@ void serialEvent(){
     else { // value == '0'
       PORTB &= 0b11011111; 
     };
+    delay(1);
   }
 }
