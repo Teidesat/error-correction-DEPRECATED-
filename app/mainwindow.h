@@ -6,6 +6,8 @@
 #include <QtSerialPort/QSerialPortInfo>
 #include <QDebug>
 #include <QPushButton>
+#include <QThread>
+#include "arduino.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,17 +22,10 @@ public:
     ~MainWindow();
 
 private:
-    static const quint16 arduinoVendorId = 9025;
-    static const quint16 arduinoModelId = 67;
-
     Ui::MainWindow *ui;
-    QSerialPort *arduino;
-    bool connected;
+    Arduino* arduino;
 
 private:
-    void disconnectArduino();
-    bool connectArduino();
-    void sendDataArduino(int data);
     void updateConnectButton();
     void sendValue();
 };

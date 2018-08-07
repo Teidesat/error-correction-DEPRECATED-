@@ -4,8 +4,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , arduino(new QSerialPort)
-    , connected(false)
+    , arduino(new Arduino)
 {
     ui->setupUi(this);
 
@@ -15,52 +14,18 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    disconnectArduino();
+    arduino->disconnectArduino();
     delete ui;
     delete arduino;
 }
 
-void MainWindow::disconnectArduino()
-{
-    arduino->disconnect();
-    arduino->close();
-    connected = false;
-}
-
-bool MainWindow::connectArduino()
-{
-    connected = false;
-    foreach (const QSerialPortInfo &serialPortInfo, QSerialPortInfo::availablePorts()) {
-        if(serialPortInfo.hasVendorIdentifier() && (serialPortInfo.productIdentifier() == arduinoModelId)){
-            qDebug() << "Arduino found!" << serialPortInfo.productIdentifier() << "at" << serialPortInfo.portName();
-            arduino ->setPortName(serialPortInfo.portName());
-            arduino->open(QIODevice::ReadWrite);
-            arduino->setDataBits(QSerialPort::Data8);
-            arduino ->setBaudRate(QSerialPort::Baud115200);
-            arduino->setParity(QSerialPort::NoParity);
-            arduino->setStopBits(QSerialPort::OneStop);
-            arduino->setFlowControl(QSerialPort::NoFlowControl);
-            connected = true;
-        }
-    }
-    return connected;
-}
-
-void MainWindow::sendDataArduino(int data)
-{
-    if (connected && arduino->isWritable()) {
-        QString str = QString::number(data) + "\n";
-        arduino->write(str.toStdString().c_str());
-    }
-}
-
 void MainWindow::updateConnectButton()
 {
-    if (connected) {
+    if (arduino->isConnected()) {
         arduino->close();
         ui->sendValueBtn->setEnabled(false);
         ui->connectionBtn->setText("Connect");
-    } else if (connectArduino()) {
+    } else if (arduino->connectArduino()) {
         ui->sendValueBtn->setEnabled(true);
         ui->connectionBtn->setText("Disconnect");
     }
@@ -68,5 +33,8 @@ void MainWindow::updateConnectButton()
 
 void MainWindow::sendValue()
 {
-    sendDataArduino(ui->value->value());
+    QString stream = ui->codeStream->text();
+    for (int i = 0; i < stream.size(); ++i) {
+        arduino->sendDataArduino(stream[i].toLatin1());
+    }
 }

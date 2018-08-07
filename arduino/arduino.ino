@@ -1,36 +1,20 @@
-String inputBuffer = "";  
-char vectorChar[20];
-bool EOF = false;
 
 void setup() {
-  inputBuffer.reserve(20);
-  Serial.begin(115200);
+  Serial.begin(2000000);
   pinMode(13,OUTPUT);
-
 }
 
-void loop() { 
-  if (EOF){                     
-    EOF = false;               
-    inputBuffer.toCharArray(vectorChar, 20);  
-    int numeroEntero = atoi(vectorChar);      
-   
-    if (numeroEntero == 0x01){
-        digitalWrite(13, HIGH);
-    }
-    else if (numeroEntero == 0x02){
-      digitalWrite(13, LOW);
-    }
-    inputBuffer = "";
-  }
+void loop() {
 }
 
 void serialEvent(){
   while (Serial.available()) {
-    char character = Serial.read();
-    inputBuffer += character;
-    if (character == '\n') {       
-      EOF = true;                  
+    char value = Serial.read();
+    if (value == '1') {   
+      PORTB |= 0b00100000;
     } 
+    else { // value == '0'
+      PORTB &= 0b11011111; 
+    };
   }
 }
