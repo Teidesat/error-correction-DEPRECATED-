@@ -14,8 +14,10 @@ Simulador de la transmisión de datos con ruido y la corrección de errores con 
 ## Herramientas y recursos utilizados
 
  - [Saleae Logic Analizer](https://www.saleae.com/downloads/)
- - [Arduino](https://www.arduino.cc/)
+ - [Arduino IDE](https://www.arduino.cc/)
+ - [Arduino Nano](https://www.arduino.cc/)
  - [QT](https://www.qt.io/download)
+ - [Raspberry PI 3 B+](https://www.raspberrypi.org/)
 
 ## Trabajo Futuro
 
