@@ -4,14 +4,14 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , package()
+    , toSend()
+    , currentGenerator(InGenerators::NONE)
 {
     ui->setupUi(this);
 
-    connect(ui->randomButton, &QPushButton::clicked, this, &MainWindow::generateRandomInput);
-    connect(ui->sendButton, &QPushButton::clicked, this, &MainWindow::sendData);
-    connect(ui->rnoiseCheckbox, &QCheckBox::stateChanged, [=](int state) {
-                                                          ui->rnoisePercent->setEnabled(state == Qt::Checked); });
+    setInputGenerator(InGenerators::RANDOM);
+    connect(ui->inputGeneratorCBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setInputGenerator(int)));
+    connect(ui->updateBtn, SIGNAL(clicked()), this, SLOT(buildInput()));
 }
 
 MainWindow::~MainWindow()
@@ -19,40 +19,53 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::sendData()
+QString MainWindow::getRandomInput()
 {
-    QString packageStr = ui->headerEdit->text() + ui->CRCEdit->text() + ui->dataEdit->text();
-    package.fromString(packageStr);
-    if (ui->rnoiseCheckbox->isChecked()) {
-        package.addNoise(ui->rnoisePercent->value());
-    }
-    ui->receivedData->setText(package.toString());
-    updateValues();
-}
+    double ones = ui->rdataOnes->value();
+    int length = ui->rdataLength->value();
+    QString random;
 
-void MainWindow::generateRandomInput()
-{
-    int length = ui->randomSize->value();
-    double ones = ui->randomOnesPercent->value();
-    QString randomized = "";
-
-    randomized.reserve(length);
+    random.reserve(length);
     for (int i = 0; i < length; ++i) {
-        randomized.push_back((randomNormal() < ones) ? '1' : '0');
+        random[i] = (randomNormal() < ones) ? '1' : '0';
     }
-    ui->dataEdit->setText(randomized);
+    return random;
 }
 
-void MainWindow::updateValues() const
+QString MainWindow::getFileInput()
 {
-    int crcSize = ui->CRCEdit->text().size();
-    int payloadSize = ui->dataEdit->text().size();
-    int totalSize = payloadSize + ui->headerEdit->text().size() + crcSize;
-    double onesPercent = package.onesPercent();
+    return "";
+}
 
-    qDebug() << crcSize << payloadSize << totalSize << onesPercent;
-    ui->totalSizeLabel->setText(QString::number(totalSize / 8));
-    ui->payloadSizeLabel->setText(QString::number(payloadSize / 8));
-    ui->crcSizeLabel->setText(QString::number(crcSize));
-    ui->onesPercentLabel->setText(QString::number(onesPercent));
+QString MainWindow::getCustomInput()
+{
+    return ui->customData->text();
+}
+
+void MainWindow::setInputGenerator(int index)
+{
+    assert(index == InGenerators::RANDOM || index == InGenerators::CUSTOM || index == InGenerators::FILE);
+
+    ui->randomInput->setVisible(index == InGenerators::RANDOM);
+    ui->customInput->setVisible(index == InGenerators::CUSTOM);
+    ui->fileInput->setVisible(index == InGenerators::FILE);
+    currentGenerator = static_cast<InGenerators>(index);
+}
+
+void MainWindow::buildInput()
+{
+    QString header = ui->headerData->text();
+    QString crc = ui->CRCData->text();
+    QString payload;
+
+    switch (currentGenerator) {
+    case InGenerators::RANDOM:  payload = getRandomInput(); break;
+    case InGenerators::FILE:    payload = getFileInput();   break;
+    case InGenerators::CUSTOM:  payload = getCustomInput(); break;
+    default: break;
+    }
+    toSend.fromString(header);
+    toSend.appendFromString(crc);
+    toSend.appendFromString(payload);
+    ui->sentData->setText(toSend.toString());
 }

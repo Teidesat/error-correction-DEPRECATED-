@@ -2,12 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QCheckBox>
-#include <QString>
-#include <QDebug>
+#include <QComboBox>
 #include <QPushButton>
-#include "datastream.h"
+#include <QDebug>
 #include "utils.h"
+#include "data.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,13 +21,21 @@ public:
     ~MainWindow();
 
 private:
+    enum InGenerators {
+        NONE = -1, RANDOM = 0, FILE = 1, CUSTOM = 2
+    };
+
     Ui::MainWindow *ui;
-    DataStream package;
+    Data toSend;
+    InGenerators currentGenerator;
+
+    QString getRandomInput();
+    QString getFileInput();
+    QString getCustomInput();
 
 private slots:
-    void sendData();
-    void generateRandomInput();
-    void updateValues() const;
+    void setInputGenerator(int index);
+    void buildInput();
 };
 
 #endif // MAINWINDOW_H
