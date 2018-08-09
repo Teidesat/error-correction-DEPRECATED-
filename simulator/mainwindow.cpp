@@ -5,6 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , toSend()
+    , toReceive()
     , currentGenerator(InGenerators::NONE)
 {
     ui->setupUi(this);
@@ -12,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     setInputGenerator(InGenerators::RANDOM);
     connect(ui->inputGeneratorCBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setInputGenerator(int)));
     connect(ui->updateBtn, SIGNAL(clicked()), this, SLOT(buildInput()));
+    connect(ui->sendBtn, SIGNAL(clicked()), this, SLOT(sendData()));
 }
 
 MainWindow::~MainWindow()
@@ -22,7 +24,7 @@ MainWindow::~MainWindow()
 QString MainWindow::getRandomInput()
 {
     double ones = ui->rdataOnes->value();
-    int length = ui->rdataLength->value();
+    int length = ui->rdataLength->value() * 8;
     QString random;
 
     random.reserve(length);
@@ -42,6 +44,27 @@ QString MainWindow::getCustomInput()
     return ui->customData->text();
 }
 
+double MainWindow::transform(int bits, MainWindow::Units toUnit) const
+{
+    double number = 0;
+    if (toUnit == Units::BYTES)   number = bits / 8.0;
+    else if (toUnit == Units::KB) number = bits / (8.0 * 1024.0);
+    else if (toUnit == Units::MB) number = bits / (8.0 * 1024.0 * 1024.0);
+    else if (toUnit == Units::GB) number = bits / (8.0 * 1024.0 * 1024.0 * 1024.0);
+    return number;
+}
+
+QString MainWindow::formatNumber(double number, int decimals) const
+{
+    QString format = "%." + QString::number(decimals) + "f";
+    return QString::asprintf(format.toStdString().c_str(), number);
+}
+
+void MainWindow::escapeSecuence(QString &data, const QString &secuence) const
+{
+    ;
+}
+
 void MainWindow::setInputGenerator(int index)
 {
     assert(index == InGenerators::RANDOM || index == InGenerators::CUSTOM || index == InGenerators::FILE);
@@ -54,7 +77,6 @@ void MainWindow::setInputGenerator(int index)
 
 void MainWindow::buildInput()
 {
-    QString header = ui->headerData->text();
     QString crc = ui->CRCData->text();
     QString payload;
 
@@ -64,8 +86,32 @@ void MainWindow::buildInput()
     case InGenerators::CUSTOM:  payload = getCustomInput(); break;
     default: break;
     }
-    toSend.fromString(header);
+    // Original payload
+    ui->payloadData->setText(payload);
+    // Original payload size
+    ui->payloadSizeOriginalLabel->setText(formatNumber(transform(payload.size(), Units::KB)));
+    // Escape payload header
+    escapeSecuence(payload, HEADER);
+    // Final payload size
+    ui->payloadSizeFinalLabel->setText(formatNumber(transform(payload.size(), Units::KB)));
+    // Build the package
+    toSend.fromString(HEADER);
     toSend.appendFromString(crc);
     toSend.appendFromString(payload);
+    // Data to send
     ui->sentData->setText(toSend.toString());
+    // Totalpackage size
+    ui->psizeLabel->setText(formatNumber(transform(toSend.size(), Units::KB)));
+}
+
+void MainWindow::sendData()
+{
+    toReceive = toSend;
+    if (ui->rnoiseCheckbox->isChecked()) {
+        toReceive.addNoise(ui->rnoiseRate->value());
+    }
+    double diffs = toReceive.diffs(toSend);
+    qDebug() << diffs << toReceive.size();
+    ui->finalNoiseLabel->setText(formatNumber(diffs * 100.0 / toReceive.size()));
+    ui->receivedData->setText(toReceive.toString());
 }
