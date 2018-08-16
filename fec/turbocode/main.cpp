@@ -16,15 +16,19 @@ int main()
     RSCDecoder decoder(2);
     RSCEncoder encoder(2);
 
-    Block input(std::vector<Bit>({0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1}));
+    Block input(std::vector<Bit>({0, 1, 0, 1}));
     Block encoded;
     Block decoded;
+    Block noise;
 
     encoded = encoder.encode(input);
-    decoded = decoder.decode(encoded);
+    noise   = Block(encoded);
+    noise.addNoise(0.05);
+    decoded = decoder.decode(noise);
 
     print("Input:   ", input);
     print("Decoded: ", decoded);
+    print("Noised:  ", noise);
     print("Encoded: ", encoded);
 
     return 0;

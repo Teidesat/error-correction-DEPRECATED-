@@ -5,6 +5,8 @@
 #include <vector>
 
 #define XOR ^
+#define HIGH 1
+#define LOW 0
 using Bit = uint8_t;
 using Byte = uint8_t;
 
@@ -24,13 +26,13 @@ inline Bit parity(T value) {
     return result;
 }
 
-inline int hdistance(Bit* a, Bit* b, int size) {
-    int count = 0;
-    for (int i = 0; i < size; ++i) {
-        if (a[i] != b[i])
-            count++;
-    }
-    return count;
-}
+inline uint32_t pow2(uint8_t  val) { return 0x1UL << val; }
+inline uint32_t pow2(uint16_t val) { return 0x1UL << val; }
+inline uint32_t pow2(uint32_t val) { return 0x1UL << val; }
+inline uint32_t pow2(uint64_t val) { return 0x1UL << val; }
+inline uint32_t pow2(int8_t   val) { return 0x1UL << val; }
+inline uint32_t pow2(int16_t  val) { return 0x1UL << val; }
+inline uint32_t pow2(int32_t  val) { return 0x1UL << val; }
+inline uint32_t pow2(int64_t  val) { return 0x1UL << val; }
 
 #endif // UTILS_H

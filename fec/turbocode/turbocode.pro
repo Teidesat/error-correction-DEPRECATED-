@@ -8,10 +8,14 @@ SOURCES += \
     rscencoder.cpp \
     rscdecoder.cpp \
     block.cpp \
-    utils.cpp
+    utils.cpp \
+    decoderscheme.cpp \
+    decodercostmatrix.cpp
 
 HEADERS += \
     rscencoder.h \
     rscdecoder.h \
     block.h \
-    utils.h
+    utils.h \
+    decoderscheme.h \
+    decodercostmatrix.h
