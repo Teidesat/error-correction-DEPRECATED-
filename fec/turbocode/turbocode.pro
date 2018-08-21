@@ -10,7 +10,8 @@ SOURCES += \
     block.cpp \
     utils.cpp \
     decoderscheme.cpp \
-    decodercostmatrix.cpp
+    decodercostmatrix.cpp \
+    interleaver.cpp
 
 HEADERS += \
     rscencoder.h \
@@ -18,4 +19,5 @@ HEADERS += \
     block.h \
     utils.h \
     decoderscheme.h \
-    decodercostmatrix.h
+    decodercostmatrix.h \
+    interleaver.h
