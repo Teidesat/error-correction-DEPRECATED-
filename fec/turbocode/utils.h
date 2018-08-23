@@ -20,7 +20,7 @@ template<class T>
 inline Bit parity(T value) {
     Bit result = 0;
     while (value) {
-        result ^= value & 1;
+        result ^= value & 0x1;
         value >>= 1;
     }
     return result;
