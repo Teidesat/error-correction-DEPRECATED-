@@ -15,6 +15,9 @@ public:
 
     void addNoise(double bitSwapRate);
 
+    bool operator==(const Block& other) const;
+    int diffs(const Block& other) const;
+
     static inline int hdistance(const Block& a, const Block& b, uint32_t size, uint32_t aStart = 0, uint32_t bStart = 0)
     {
         int count = 0;
@@ -23,6 +26,12 @@ public:
                 count++;
         }
         return count;
+    }
+
+    static inline Block random(uint32_t size) {
+        Block random(size);
+        random.addNoise(0.5);
+        return random;
     }
 };
 

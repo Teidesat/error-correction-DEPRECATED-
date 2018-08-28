@@ -11,12 +11,13 @@
 class RSCEncoder
 {
 public:
-    RSCEncoder(uint8_t k, uint32_t g1, uint32_t g2);
+    RSCEncoder(uint8_t k, uint32_t g1, uint32_t g2); // Memory = k - 1
 
     Block encode(const Block& data);
 
 private:
     uint32_t memory;
+    uint8_t memorySize;
     uint32_t g1;
     uint32_t g2;
     uint8_t k;

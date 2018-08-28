@@ -5,8 +5,13 @@
 
 void print(const char* name, const Block& block) {
     std::cout << name;
-    for (Bit value : block) {
-        std::cout << std::bitset<1>(value) << " ";
+
+    if (block.size() > 50) {
+        std::cout << " [...] size: " << block.size();
+    } else {
+        for (Bit value : block) {
+            std::cout << std::bitset<1>(value) << " ";
+        }
     }
     std::cout << std::endl;
 }
@@ -14,9 +19,9 @@ void print(const char* name, const Block& block) {
 int main()
 {
     RSCDecoder decoder(2);
-    RSCEncoder encoder(3, 0b101, 0b111);
+    RSCEncoder encoder(3, 0b011, 0b101);
 
-    Block input(std::vector<Bit>({0, 1, 0, 1, 1, 1}));
+    Block input = Block::random(100);
     Block encoded;
     Block decoded;
     Block noise;
@@ -30,6 +35,8 @@ int main()
     print("Decoded: ", decoded);
     print("Noised:  ", noise);
     print("Encoded: ", encoded);
+
+    std::cout << "Decoded error: " << (double(input.diffs(decoded)) / input.size()) << "%" << std::endl;
 
     return 0;
 }

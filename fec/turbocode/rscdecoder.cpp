@@ -12,7 +12,7 @@ Block RSCDecoder::decode(const Block &input)
 
     costs.setNode(0, 0); // Always start from the same node. Enable it.
 
-    for (uint32_t col = 0; col < costs.getCols(); ++col) {
+    for (uint32_t col = 0; col < costs.getCols() - 1; ++col) {
         for (uint32_t row = 0; row < costs.getRows(); ++row) {
             if (costs.isEnabled(row, col)) {
                 int zeroCost = Block::hdistance(input, scheme.getOutputs(row, LOW ), encoderOutputs, col * encoderOutputs);

@@ -12,6 +12,31 @@ void Block::addNoise(double bitSwapRate)
 {
     for (Bit& bit : *this) {
         if ((std::rand() / double(RAND_MAX)) < bitSwapRate)
-            bit = ~bit;
+            bit = (~bit & 0x1);
     }
+}
+
+bool Block::operator==(const Block &other) const
+{
+    if (other.size() != size())
+        return false;
+
+    for (uint32_t i = 0; i < size(); ++i) {
+        if (at(i) != other[i])
+            return false;
+    }
+    return true;
+}
+
+int Block::diffs(const Block &other) const
+{
+    if (other.size() != size())
+        return -1;
+
+    int count = 0;
+    for (uint32_t i = 0; i < size(); ++i) {
+        if (at(i) != other[i])
+            count++;
+    }
+    return count;
 }
