@@ -16,7 +16,6 @@ Block RSCEncoder::encode(const Block &data)
     encoded.reserve(data.size() * 2); // Size x2 if rate 1/2
     uint32_t memoryInput;
 
-    std::cout << int(memorySize) << std::endl;
     for (Bit input : data) {
         memoryInput = input XOR parity(g1 & memory); // Bit k of memory = 0 because of shift
         memory     |= memoryInput << memorySize;

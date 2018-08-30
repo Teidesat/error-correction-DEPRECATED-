@@ -14,13 +14,14 @@
 class RSCDecoder
 {
 public:
-    RSCDecoder(int k);
+    RSCDecoder(uint8_t k);
     Block decode(const Block& input);
 
 private:
     static const int encoderOutputs = 2;
     static const int encoderInputs = 1;
-    int k;
+    uint8_t k;
+    uint8_t memorySize;
     DecoderScheme scheme;
 
     //Block backtrack(Matrix<CostNode>& costs) const;

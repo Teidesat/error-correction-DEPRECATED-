@@ -1,14 +1,15 @@
 #include "rscdecoder.h"
 
-RSCDecoder::RSCDecoder(int k)
+RSCDecoder::RSCDecoder(uint8_t k)
     : k(k)
-    , scheme(k, encoderOutputs, encoderInputs)
+    , memorySize(k - 1)
+    , scheme(memorySize, encoderOutputs, encoderInputs)
 {}
 
 Block RSCDecoder::decode(const Block &input)
 {
     const int encoderOutputs = 2;
-    DecoderCostMatrix costs(k, input.size(), encoderOutputs);
+    DecoderCostMatrix costs(memorySize, input.size(), encoderOutputs);
 
     costs.setNode(0, 0); // Always start from the same node. Enable it.
 
@@ -23,7 +24,7 @@ Block RSCDecoder::decode(const Block &input)
         }
     }
 
-    for (uint32_t row = 0; row < costs.getRows(); ++row) {
+    /*for (uint32_t row = 0; row < costs.getRows(); ++row) {
         for (uint32_t col = 0; col < costs.getCols(); ++col) {
             if (costs.isEnabled(row, col)) {
                 std::cout << costs.getParent(row, col) << " " << costs.getCost(row, col) << "  ";
@@ -32,7 +33,7 @@ Block RSCDecoder::decode(const Block &input)
             }
         }
         std::cout << std::endl;
-    }
+    }*/
 
     return costs.backtrack();
 }

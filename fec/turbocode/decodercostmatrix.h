@@ -25,7 +25,7 @@ private:
     Matrix matrix;
 
 public:
-    DecoderCostMatrix(int k, int inputSize, int encoderOutputs);
+    DecoderCostMatrix(int memorySize, int inputSize, int encoderOutputs);
 
     uint32_t getRows() const;
     uint32_t getCols() const;

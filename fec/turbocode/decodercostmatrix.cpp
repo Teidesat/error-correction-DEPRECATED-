@@ -1,7 +1,7 @@
 #include "decodercostmatrix.h"
 
-DecoderCostMatrix::DecoderCostMatrix(int k, int inputSize, int encoderOutputs)
-    : rows(pow2(k))
+DecoderCostMatrix::DecoderCostMatrix(int memorySize, int inputSize, int encoderOutputs)
+    : rows(pow2(memorySize))
     , cols(inputSize / encoderOutputs + 1U)
     , matrix(rows, Row(cols))
 {}

@@ -10,7 +10,7 @@
 class DecoderScheme
 {
 public:
-    DecoderScheme(int k, int encoderOutputs, int encoderInputs);
+    DecoderScheme(int memorySize, int encoderOutputs, int encoderInputs);
 
     const Block& getOutputs(uint32_t row, Bit link);
     uint32_t getDst(uint32_t row, Bit link);
@@ -26,7 +26,7 @@ private:
         Link zeroLink;
     };
 
-    int k; // r = encoderInputs / encoderOutputs
+    int memorySize;
     int encoderOutputs;
     int encoderInputs;
     std::vector<Node> scheme;
