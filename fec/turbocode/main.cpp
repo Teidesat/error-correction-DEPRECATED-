@@ -23,36 +23,15 @@ void print(const char* name, const Block& block) {
 
 int main()
 {
-    RSCDecoder decoder(3);
-    RSCEncoder encoder(3, 0b011, 0b101);
-    const double noiseLevel = 0;
+    RSCDecoder decoder(6);
+    RSCEncoder encoder(6, 0b011111, 0b100001);
 
-    //Block input = Block::random(3);
-//    Block input = Block(std::vector<Bit>({0, 0, 1}));
-//    Block encoded;
-//    Block decoded;
-//    Block noise;
-
-//    encoded = encoder.encode(input);
-//    noise   = Block(encoded);
-//    noise.addNoise(noiseLevel);
-//    decoded = decoder.decode(noise);
-
-//    print("Input:   ", input);
-//    print("Decoded: ", decoded);
-//    print("Noised:  ", noise);
-//    print("Encoded: ", encoded);
-//    std::cout << "Decoded error: " << (input.diffs(decoded) * 100.0 / input.size()) << "%  ";
-//    std::cout << "Noise (Bit swap rate): " << (noiseLevel * 100.0) << "%" << std::endl;
-
-
-    //std::srand(std::time(nullptr));
-    std::srand(10);
-    for (double noiseLevel = 0; noiseLevel <= 0.001; noiseLevel += 0.05) {
+    std::srand(std::time(nullptr));
+    for (double noiseLevel = 0; noiseLevel <= 1; noiseLevel += 0.01) {
         std::vector<double> decError;
 
-        for (int its = 0; its < 20; ++its) {
-            Block input = Block::random(3);
+        for (int its = 0; its < 50; ++its) {
+            Block input = Block::random(1024);
             Block encoded;
             Block decoded;
             Block noise;
@@ -60,18 +39,9 @@ int main()
             encoded = encoder.encode(input);
             noise   = Block(encoded);
             //noise.addNoise(noiseLevel);
+            noise.addEraserNoise(noiseLevel);
             decoded = decoder.decode(noise);
-            //std::cout << "Decoded error: " << (input.diffs(decoded) * 100.0 / input.size()) << "%  ";
-            //std::cout << "Noise (Bit swap rate): " << (noiseLevel * 100.0) << "%" << std::endl;
-            double error = input.diffs(decoded) * 1.0 / input.size();
-            decError.push_back(error);
-            if (error > 0) {
-                print("Input:   ", input);
-                print("Decoded: ", decoded);
-                //print("Noised:  ", noise);
-                print("Encoded: ", encoded);
-                std::cout << its << " " << error << std::endl;
-            }
+            decError.push_back(input.diffs(decoded) * 1.0 / input.size());
         }
 
         std::vector<double>& v = decError;
@@ -84,7 +54,7 @@ int main()
         });
 
         double stdev = sqrt(accum / (v.size()-1));
-        printf("Noise: %.3f AvgError: %.4f StdDev: %.4f\n", noiseLevel, m, stdev);
+        printf("%.3f,%.4f,%.4f\n", noiseLevel, m, stdev);
     }
 
     return 0;

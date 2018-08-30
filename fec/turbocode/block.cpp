@@ -16,6 +16,14 @@ void Block::addNoise(double bitSwapRate)
     }
 }
 
+void Block::addEraserNoise(double eraseRate)
+{
+    for (Bit& bit : *this) {
+        if ((std::rand() / double(RAND_MAX)) < eraseRate)
+            bit = 0;
+    }
+}
+
 bool Block::operator==(const Block &other) const
 {
     if (other.size() != size())

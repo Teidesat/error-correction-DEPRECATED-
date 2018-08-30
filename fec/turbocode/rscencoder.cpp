@@ -12,6 +12,7 @@ RSCEncoder::RSCEncoder(uint8_t k, uint32_t g1, uint32_t g2)
 
 Block RSCEncoder::encode(const Block &data)
 {
+    memory = 0;
     Block encoded;
     encoded.reserve(data.size() * 2); // Size x2 if rate 1/2
     uint32_t memoryInput;

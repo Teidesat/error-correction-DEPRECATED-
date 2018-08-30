@@ -14,6 +14,7 @@ public:
     Block(uint32_t size = 0);
 
     void addNoise(double bitSwapRate);
+    void addEraserNoise(double eraseRate);
 
     bool operator==(const Block& other) const;
     int diffs(const Block& other) const;
