@@ -7,12 +7,15 @@
 
 Aplicaciones para la gestión de datos entre el emisor y el receptor.
 
-### Simulador
-
-Simulador de la transmisión de datos con ruido y la corrección de errores con códigos CRC.
+ - **forward_error_correction:** Corrección de errores para la transmisión de datos
+ - **data_transmission_raspberry:** Scripts para la transmisión optica de información en los dummies
 
 ## Herramientas y recursos utilizados
 
+### Data Transmission Raspberry
+ - _
+
+### Forward Error Correction
  - [Saleae Logic Analizer](https://www.saleae.com/downloads/)
  - [Arduino IDE](https://www.arduino.cc/)
  - [Arduino Nano](https://www.arduino.cc/)
