@@ -1,9 +1,12 @@
 <img width="350" src="logo.png" align="right" />
 
-# GDrive-Backup
-> From TEIDESAT Project and Hyperspace Canarias
+# Error Correcting Codes
 
-> Version 0.1.0-alpha
+![C++17](https://img.shields.io/badge/c++-17-blue.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![Version](https://img.shields.io/badge/alpha-0.0.0-yellow.svg)
+
+> From TEIDESAT Project and Hyperspace Canarias
 
 ## Description
 
