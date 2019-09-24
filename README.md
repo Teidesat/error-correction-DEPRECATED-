@@ -1,29 +1,20 @@
-<img width="280" src="https://teidesat.com/wp-content/uploads/logo_white_outline.svg" align="right" />
+<img width="350" src="logo.png" align="right" />
 
-# Gestión y envío de datos para la *prueba de concepto*
-> Proyecto TeideSAT
+# GDrive-Backup
+> From TEIDESAT Project and Hyperspace Canarias
 
-## Introducción
+> Version 0.1.0-alpha
 
-Aplicaciones para la gestión de datos entre el emisor y el receptor.
+## Description
 
- - **forward_error_correction:** Corrección de errores para la transmisión de datos
- - **data_transmission_raspberry:** Scripts para la transmisión optica de información en los dummies
+Forward Error Correction using Turbo-Codes for the TeideSat optical (down)link
+in free space.
 
-## Herramientas y recursos utilizados
+## Prerequisites
 
-### Data Transmission Raspberry
- - _
+- C++17
+- CMake
 
-### Forward Error Correction
- - [Saleae Logic Analizer](https://www.saleae.com/downloads/)
- - [Arduino IDE](https://www.arduino.cc/)
- - [Arduino Nano](https://www.arduino.cc/)
- - [QT](https://www.qt.io/download)
- - [Raspberry PI 3 B+](https://www.raspberrypi.org/)
+## Resources
 
-## Trabajo Futuro
-
-## Referencias
-
- - [CRC code](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)
+ - ...
