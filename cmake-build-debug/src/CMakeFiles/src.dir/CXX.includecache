@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Shoo/CLionProjects/error-correction/src/FEC/Channel.cpp
+Channel.h
+C:/Users/Shoo/CLionProjects/error-correction/src/FEC/Channel.h
+
+C:/Users/Shoo/CLionProjects/error-correction/src/FEC/Channel.h
+
+C:/Users/Shoo/CLionProjects/error-correction/src/FEC/Decoder.cpp
+Decoder.h
+C:/Users/Shoo/CLionProjects/error-correction/src/FEC/Decoder.h
+
+C:/Users/Shoo/CLionProjects/error-correction/src/FEC/Decoder.h
+
+C:/Users/Shoo/CLionProjects/error-correction/src/FEC/Encoder.cpp
+Encoder.h
+C:/Users/Shoo/CLionProjects/error-correction/src/FEC/Encoder.h
+
+C:/Users/Shoo/CLionProjects/error-correction/src/FEC/Encoder.h
+
