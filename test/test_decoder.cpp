@@ -1,7 +1,4 @@
 #include <catch.hpp>
-#include <FEC/Decoder.h>
+#include <FEC/Modules/Decoders/Decoder.h>
 
-TEST_CASE("Decoder is instantiable", "[decoder]") {
-    FEC::Decoder decoder;
-    REQUIRE(dynamic_cast<FEC::Decoder*>(&decoder));
-}
+// TODO
