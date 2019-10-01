@@ -7,6 +7,10 @@ namespace FEC {
     class Encoder : public Module {
     public:
         Encoder() : Module() {};
+
+        [[nodiscard]] virtual float get_code_rate() const = 0;
+
+        [[nodiscard]] virtual size_t get_outputs() const = 0;
     };
 }
 

@@ -18,6 +18,18 @@ namespace FEC {
         }
     }
 
+    float TurboEncoder::get_code_rate() const {
+        return 1.0f / this->get_outputs();
+    }
+
+    size_t TurboEncoder::get_outputs() const {
+        size_t outputs = 0;
+        for (size_t i = 0; i < this->encoders.size(); i++) {
+            outputs += encoders.at(i)->get_outputs() - 1;
+        }
+        return outputs + 1;
+    }
+
     void TurboEncoder::validate_config() const {
         assert(this->encoders.size() > 1);
         assert(this->interleavers.size() == this->encoders.size() - 1);

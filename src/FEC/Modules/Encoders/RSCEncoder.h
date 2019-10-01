@@ -19,9 +19,9 @@ namespace FEC {
             validate_config();
         };
 
-        [[nodiscard]] float get_code_rate() const;
+        [[nodiscard]] float get_code_rate() const override;
 
-        [[nodiscard]] size_t get_outputs() const;
+        [[nodiscard]] size_t get_outputs() const override;
 
         [[nodiscard]] size_t get_registers() const;
 

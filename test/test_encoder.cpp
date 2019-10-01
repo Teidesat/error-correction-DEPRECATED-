@@ -14,6 +14,8 @@ TEST_CASE("RSCEncoder works for r=1/2 and K=2", "[encoder]") {
     FEC::RSCEncoder rsc_encoder(generators, 2);
     rsc_encoder.process(input, output);
 
+    REQUIRE(rsc_encoder.get_code_rate() == 1.0f / 2);
+    REQUIRE(rsc_encoder.get_outputs() == 2);
     REQUIRE(output == FEC::DataBlock{0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1});
 }
 
@@ -27,6 +29,8 @@ TEST_CASE("RSCEncoder works for r=1/2 and K=3", "[encoder]") {
     FEC::RSCEncoder rsc_encoder(generators, 3);
     rsc_encoder.process(input, output);
 
+    REQUIRE(rsc_encoder.get_code_rate() == 1.0f / 2);
+    REQUIRE(rsc_encoder.get_outputs() == 2);
     REQUIRE(output == FEC::DataBlock{0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1});
 }
 
@@ -45,5 +49,7 @@ TEST_CASE("TurboEncoder works for r=1/3 with two K=2 encoders", "[encoder]") {
 
     turbo_encoder.process(input, output);
 
+    REQUIRE(turbo_encoder.get_code_rate() == 1.0f / 3);
+    REQUIRE(turbo_encoder.get_outputs() == 3);
     REQUIRE(output == FEC::DataBlock{0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1});
 }
