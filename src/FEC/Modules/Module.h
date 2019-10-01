@@ -15,6 +15,8 @@ namespace FEC {
 
         void process(const std::shared_ptr<DataBlock>& data_block);
 
+        void process(const DataBlock &data_block, DataBlock &output);
+
     protected:
         /**
          * Virtual method that must be implemented in every module, it will be called when a new data block is received.

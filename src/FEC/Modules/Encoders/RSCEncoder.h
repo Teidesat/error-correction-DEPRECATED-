@@ -12,10 +12,10 @@ namespace FEC {
 
     class RSCEncoder : public Encoder {
     public:
-        explicit RSCEncoder(Generators generators, size_t constraint_length = 3) : Encoder(),
-                                                                                   generators(std::move(generators)),
-                                                                                   constraint_length(constraint_length),
-                                                                                   registers(std::vector<bool>(this->get_registers(), 0)) {
+        explicit RSCEncoder(Generators generators, size_t constraint_length) : Encoder(),
+                                                                               generators(std::move(generators)),
+                                                                               constraint_length(constraint_length),
+                                                                               registers(std::vector<bool>(this->get_registers(), 0)) {
             validate_config();
         };
 

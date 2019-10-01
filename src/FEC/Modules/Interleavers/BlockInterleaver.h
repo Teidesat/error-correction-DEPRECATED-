@@ -1,7 +1,7 @@
 #ifndef ERROR_CORRECTION_BLOCKINTERLEAVER_H
 #define ERROR_CORRECTION_BLOCKINTERLEAVER_H
 
-#include <FEC/Modules/Interleaves/Interleaver.h>
+#include <FEC/Modules/Interleavers/Interleaver.h>
 
 namespace FEC {
     class BlockInterleaver : public Interleaver {

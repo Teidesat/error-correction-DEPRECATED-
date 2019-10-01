@@ -5,7 +5,7 @@
 
 TEST_CASE("DataBlock is instantiable", "[datablock]") {
     FEC::DataBlock dataBlock;
-    REQUIRE(dynamic_cast<FEC::DataBlock*>(&dataBlock));
+    REQUIRE(dynamic_cast<FEC::DataBlock *>(&dataBlock));
 }
 
 TEST_CASE("DataBlock is filled with 0 on instantiation", "[datablock]") {

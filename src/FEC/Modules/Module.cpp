@@ -10,4 +10,9 @@ namespace FEC {
         this->on_new_data_block(*data_block, *output);
         this->get_pipe().send_data(output);
     }
+
+    void Module::process(const DataBlock &data_block, DataBlock &output) {
+        output.resize(data_block.size());
+        this->on_new_data_block(data_block, output);
+    }
 }
