@@ -6,12 +6,9 @@
 #include <utility>
 
 namespace FEC {
-    template<size_t N>
-    class Source : public Module<N> {
+    class Source : public Module {
     public:
-        Source() : Module<N>() {};
-
-        explicit Source(const Parameters &parameters) : Module<N>(parameters) {};
+        explicit Source(size_t data_block_size) : Module(), data_block_size(data_block_size) {};
 
         bool read(size_t data_blocks);
 
@@ -23,15 +20,15 @@ namespace FEC {
          * @param data_block the data block to be filled (output)
          * @return true if end of source is reached, else otherwise
          */
-        virtual bool read_data_block(DataBlock<N> &data_block) = 0;
+        virtual bool read_data_block(DataBlock &data_block) = 0;
 
     private:
-        void on_new_data_block(const DataBlock<N> &data_block, DataBlock<N> &output) final {};
+        size_t data_block_size;
 
-        void send_data_block(DataBlock<N> &data_block);
+        void on_new_data_block(const DataBlock &data_block, DataBlock &output) final {};
+
+        void send_data_block(DataBlock &data_block);
     };
 }
-
-#include "Source.tcc"
 
 #endif //ERROR_CORRECTION_SOURCE_H

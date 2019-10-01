@@ -4,12 +4,9 @@
 #include <FEC/Modules/Module.h>
 
 namespace FEC {
-    template<size_t N>
-    class Channel : public Module<N> {
+    class Channel : public Module {
     public:
-        Channel() : Module<N>() {};
-
-        explicit Channel(const Parameters &parameters) : Module<N>(parameters) {};
+        Channel() : Module() {};
     };
 }
 

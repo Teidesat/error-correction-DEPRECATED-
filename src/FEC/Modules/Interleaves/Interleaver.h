@@ -4,12 +4,9 @@
 #include <FEC/Modules/Module.h>
 
 namespace FEC {
-    template <size_t N>
-    class Interleaver : public Module<N> {
+    class Interleaver : public Module {
     public:
-        Interleaver() : Module<N>() {};
-
-        explicit Interleaver(const Parameters &parameters) : Module<N>(parameters) {};
+        Interleaver() : Module() {};
     };
 }
 

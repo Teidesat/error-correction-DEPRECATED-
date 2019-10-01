@@ -4,18 +4,13 @@
 #include "Source.h"
 
 namespace FEC {
-    template<size_t N>
-    class RandomSource : public Source<N> {
+    class RandomSource : public Source {
     public:
-        RandomSource() : Source<N>() {};
-
-        explicit RandomSource(const Parameters &parameters) : Source<N>(parameters) {};
+        explicit RandomSource(size_t data_block_size) : Source(data_block_size) {};
 
     private:
-        bool read_data_block(DataBlock<N> &data_block) override;
+        bool read_data_block(DataBlock &data_block) override;
     };
 }
-
-#include "RandomSource.tcc"
 
 #endif //ERROR_CORRECTION_RANDOMSOURCE_H

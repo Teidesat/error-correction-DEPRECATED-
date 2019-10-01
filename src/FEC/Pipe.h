@@ -6,26 +6,22 @@
 #include <memory>
 
 namespace FEC {
-    template<size_t N, size_t K = N>
     class Module;
 
     /**
      * Abstract construction to connect two modules, allowing one module to send data blocks to other module.
      */
-    template<size_t N>
     class Pipe {
     public:
         explicit Pipe() : output(nullptr) {};
 
-        void set_output(Module<N> &new_output);
+        void set_output(Module &new_output);
 
-        void send_data(std::shared_ptr<DataBlock<N>> data_block);
+        void send_data(std::shared_ptr<DataBlock> data_block);
 
     private:
-        Module<N> *output;
+        Module *output;
     };
 }
-
-#include "Pipe.tcc"
 
 #endif //ERROR_CORRECTION_PIPE_H

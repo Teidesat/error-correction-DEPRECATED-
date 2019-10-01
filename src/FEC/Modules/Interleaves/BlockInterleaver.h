@@ -4,18 +4,18 @@
 #include <FEC/Modules/Interleaves/Interleaver.h>
 
 namespace FEC {
-    template <size_t N>
-    class BlockInterleaver : public Interleaver<N> {
+    class BlockInterleaver : public Interleaver {
     public:
-        BlockInterleaver() : Interleaver<N>() {};
-
-        explicit BlockInterleaver(const Parameters &parameters) : Interleaver<N>(parameters) {};
+        explicit BlockInterleaver(size_t columns) : Interleaver(), columns(columns) {};
 
     private:
-        void on_new_data_block(const DataBlock<N> &data_block, DataBlock<N> &output) override;
+        size_t columns;
+        size_t rows = 1;
+
+        void on_new_data_block(const DataBlock &data_block, DataBlock &output) override;
+
+        void calculate_matrix_size(size_t bits_size);
     };
 }
-
-#include "BlockInterleaver.tcc"
 
 #endif //ERROR_CORRECTION_BLOCKINTERLEAVER_H

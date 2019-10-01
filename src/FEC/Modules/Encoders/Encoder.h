@@ -4,12 +4,9 @@
 #include <FEC/Modules/Module.h>
 
 namespace FEC {
-    template<size_t N, size_t K>
-    class Encoder : public Module<N, K> {
+    class Encoder : public Module {
     public:
-        Encoder() : Module<N, K>() {};
-
-        explicit Encoder(const Parameters &parameters) : Module<N, K>(parameters) {};
+        Encoder() : Module() {};
     };
 }
 

@@ -4,12 +4,9 @@
 #include <FEC/Modules/Module.h>
 
 namespace FEC {
-    template <size_t N>
-    class Sink : public Module<N> {
+    class Sink : public Module {
     public:
-        Sink() : Module<N>() {};
-
-        explicit Sink(const Parameters &parameters) : Module<N>(parameters) {};
+        Sink() : Module() {};
     };
 }
 
