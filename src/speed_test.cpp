@@ -47,7 +47,7 @@ int main() {
         }
 
         FEC::StatValue va(duration);
-        std::cout << n << ',' << va.getMean() << ',' << va.getStdDev() << ',' << va.getMax() << ',' << va.getMean() << std::endl;
+        std::cout << n << ',' << va.getMean() << ',' << va.getStdDev() << ',' << va.getMax() << ',' << va.getMin() << std::endl;
     }
 
     return 0;
