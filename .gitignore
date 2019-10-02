@@ -137,4 +137,4 @@ venv.bak/
 .mypy_cache/
 
 # Cmake
-cmake-build-debug/
+cmake-build-*/
