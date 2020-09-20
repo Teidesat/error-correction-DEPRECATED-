@@ -1,24 +1,7 @@
-cmake_minimum_required(VERSION 3.13)
-project(error-correction)
+cmake_minimum_required(VERSION 3.17)
+project(tsat_tc)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
-endif()
-
-set(CMAKE_CXX_FLAGS "-Wall -Wextra")
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-
-# Version number
-set(VERSION_MAJOR 0)
-set(VERSION_MINOR 1)
-
-configure_file(config/Config.h.in config/Config.h @ONLY)
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/config)
-include_directories(include src)
-
-add_subdirectory(include)
-add_subdirectory(src)
-add_subdirectory(test)
+add_library(tsat_tc src/encoder/RSC.cpp src/encoder/RSC.h src/other/common.h src/other/common.cpp src/other/CMatrix.cpp src/other/CMatrix.h src/encoder/Viterbi.cpp src/encoder/Viterbi.h src/encoder/Transition.cpp src/encoder/Transition.h)
+add_subdirectory(tests)

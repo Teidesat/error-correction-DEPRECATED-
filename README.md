@@ -11,7 +11,7 @@
 ## Description
 
 Forward Error Correction using Turbo-Codes for the TeideSat optical (down)link
-in free space.
+in free space. (And other encoders)
 
 ## Prerequisites
 
