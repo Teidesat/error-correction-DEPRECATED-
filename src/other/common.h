@@ -5,6 +5,7 @@
 #ifndef TSAT_TC_COMMON_H
 #define TSAT_TC_COMMON_H
 
+#include <vector>
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -15,6 +16,11 @@
 using State = uint32_t;
 std::string binToStr(uint32_t bin, uint8_t size = 32);
 uint32_t hammingDist(uint32_t a, uint32_t b);
+void percentageBar(float current, float max);
+
+std::vector<uint8_t> randomVector(size_t bytes);
+std::vector<uint8_t> addNoise(const std::vector<uint8_t>& v, float p);
+float ber(const std::vector<uint8_t>& noise, const std::vector<uint8_t>& original);
 
 template <class... Ts>
 std::string format(const char* str, Ts const&... rest) {
